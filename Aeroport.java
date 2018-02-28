@@ -13,10 +13,11 @@ import java.util.List;
  * @author C4theWin
  */
 public class Aeroport {
-    private List<Dwelling> dwellings = new ArrayList<>();
+    private List<Dwelling> dwellings;
     
     Aeroport () {
-
+           
+        dwellings = new ArrayList<>();
     }
     
     public boolean addDwelling (Dwelling newDwelling) {

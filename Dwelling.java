@@ -16,21 +16,24 @@ public abstract class Dwelling {
     protected enum DwellingType {Hangar, Pista};
     DwellingType dwellingType;
     
-    private String id;
+    private final String id;
     
     private List<Aeronava> aeronave;
     private final int capacity;
     private final int aeronaveStored;
     
-    protected Dwelling (int newCapacity, DwellingType newType) {
-        this.dwellingType = newType;
+    protected Dwelling (String newId, int newCapacity, DwellingType newType) {
+        this.id = newId;
+
         this.capacity = newCapacity;
         aeronave = new ArrayList<>(newCapacity);
         this.aeronaveStored = 0;
+    
+        this.dwellingType = newType;
     }
     
-    protected Dwelling (DwellingType newType) {
-        this(1, newType);
+    protected Dwelling (String newId, DwellingType newType) {
+        this(newId, 1, newType);
     }
     
     public String getId () {

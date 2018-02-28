@@ -9,7 +9,7 @@ package AerialManager;
  *
  * @author C4theWin
  */
-public class Aeronava {
+public abstract class Aeronava {
     protected enum AeronavaType {Elicopter, Avion};
     private final AeronavaType aeronavaType;
     private final String id;
@@ -19,6 +19,14 @@ public class Aeronava {
         this.id = newId;
         this.model = newModel;
         this.aeronavaType = newType;
+    }
+    
+    public String getId () {
+        return this.id;
+    }
+    
+    public String getModel () {
+        return this.model;
     }
     
 }

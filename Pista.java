@@ -10,11 +10,11 @@ package AerialManager;
  * @author C4theWin
  */
 public class Pista extends Dwelling {
-    Pista () {
-        super(DwellingType.Pista);
+    Pista (String newId) {
+        super(newId, DwellingType.Pista);
     }
     
-    Pista (int newCapacity) {
-        super(newCapacity, DwellingType.Pista);
+    Pista (String newId, int newCapacity) {
+        super(newId, newCapacity, DwellingType.Pista);
     }
 }

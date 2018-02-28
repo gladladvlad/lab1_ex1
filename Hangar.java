@@ -10,11 +10,11 @@ package AerialManager;
  * @author C4theWin
  */
 public class Hangar extends Dwelling {
-    Hangar () {
-        super(DwellingType.Hangar);
+    Hangar (String newId) {
+        super(newId, DwellingType.Hangar);
     }
     
-    Hangar (int newCapacity) {
-        super(newCapacity, DwellingType.Hangar);
+    Hangar (String newId, int newCapacity) {
+        super(newId, newCapacity, DwellingType.Hangar);
     }
 }
