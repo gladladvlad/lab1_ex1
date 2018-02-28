@@ -20,7 +20,7 @@ public abstract class Dwelling {
     
     private List<Aeronava> aeronave;
     private final int capacity;
-    private final int aeronaveStored;
+    private int aeronaveStored;
     
     protected Dwelling (String newId, int newCapacity, DwellingType newType) {
         if (newId == null) {
@@ -55,12 +55,38 @@ public abstract class Dwelling {
         return this.dwellingType;
     }
     
+    protected boolean removeAeronavaById (String removeId) {
+        if (removeId == null) {
+            throw new IllegalArgumentException("In `removeAeronavaById (String removeId)`: removeId can't be null");
+        }
+        
+        for (int i = 0; i < aeronave.size(); i++) {
+            Aeronava currentAeronava = aeronave.get(i);
+            
+            if (currentAeronava.getId().equals(removeId)) {
+                aeronave.remove(i);
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    protected boolean removeAeronavaByInstance (Aeronava removeInstance) {
+        if (removeInstance == null) {
+            throw new IllegalArgumentException("In `removeAeronavaByInstance (Aeronava removeInstance)`: removeInstance can't be null");
+        }
+        
+        return aeronave.remove(removeInstance);
+    }
+    
     protected boolean addAeronava (Aeronava newAeronava) {
         if (this.aeronaveStored >= this.capacity) {
             return false;
         }
         
-        aeronave.add(newAeronava);
+        this.aeronave.add(newAeronava);
+        this.aeronaveStored++;
         return true;
     }
 }
