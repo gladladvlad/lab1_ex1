@@ -14,4 +14,7 @@ public class Pista extends Dwelling {
         super(DwellingType.Pista);
     }
     
+    Pista (int newCapacity) {
+        super(newCapacity, DwellingType.Pista);
+    }
 }

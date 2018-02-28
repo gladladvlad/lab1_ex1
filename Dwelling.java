@@ -5,6 +5,9 @@
  */
 package AerialManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author C4theWin
@@ -12,23 +15,42 @@ package AerialManager;
 public abstract class Dwelling {
     protected enum DwellingType {Hangar, Pista};
     DwellingType dwellingType;
+    
+    private String id;
+    
+    private List<Aeronava> aeronave;
     private final int capacity;
+    private final int aeronaveStored;
     
-    Dwelling (DwellingType newType) {
-        this.dwellingType = newType;
-        this.capacity = 1;
-    }
-    
-    Dwelling (int newCapacity, DwellingType newType) {
+    protected Dwelling (int newCapacity, DwellingType newType) {
         this.dwellingType = newType;
         this.capacity = newCapacity;
+        aeronave = new ArrayList<>(newCapacity);
+        this.aeronaveStored = 0;
     }
     
-    public int getCapacity () {
-        return this.capacity;
+    protected Dwelling (DwellingType newType) {
+        this(1, newType);
+    }
+    
+    public String getId () {
+        return this.id;
+    }
+    
+    public int getTotalCapacity () {
+        return this.capacity - this.aeronaveStored;
     }
     
     public DwellingType getType () {
-        return dwellingType;
+        return this.dwellingType;
+    }
+    
+    protected boolean addAeronava (Aeronava newAeronava) {
+        if (this.aeronaveStored >= this.capacity) {
+            return false;
+        }
+        
+        aeronave.add(newAeronava);
+        return true;
     }
 }

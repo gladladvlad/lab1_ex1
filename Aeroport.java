@@ -13,19 +13,15 @@ import java.util.List;
  * @author C4theWin
  */
 public class Aeroport {
-    private List<Dwelling> aeronaveStored = new ArrayList<>();
-    private int capacity;
+    private List<Dwelling> dwellings = new ArrayList<>();
     
     Aeroport () {
-        this.capacity = 1;
+
     }
     
-    Aeroport (int newCapacity) {
-        this.capacity = newCapacity;
-    }
-    
-    public int getCapacity (){
-        return this.capacity;
+    public boolean addDwelling (Dwelling newDwelling) {
+        this.dwellings.add(newDwelling);
+        return true;
     }
     
     public boolean addAeronava (Aeronava aeronavaToAdd) {
@@ -33,8 +29,24 @@ public class Aeroport {
         if (validation) {
             return false;
         }
-        //add aeronava
+        
+        for (int i = 0; i < dwellings.size(); i++) {
+            //if (dwellings.get())
+        }
+        
         return true;
     }
     
+    public Dwelling getDwellingById (String lookId) {
+        if (lookId == null)
+            return null;
+        
+        for (int i = 0; i < dwellings.size(); i++) {
+            if (dwellings.get(i).getId().equals(lookId)) {
+                return dwellings.get(i);
+            }
+        }
+        
+        return null;
+    }
 }

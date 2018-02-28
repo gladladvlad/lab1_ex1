@@ -13,4 +13,8 @@ public class Hangar extends Dwelling {
     Hangar () {
         super(DwellingType.Hangar);
     }
+    
+    Hangar (int newCapacity) {
+        super(newCapacity, DwellingType.Hangar);
+    }
 }
