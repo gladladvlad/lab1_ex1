@@ -16,8 +16,16 @@ public abstract class Aeronava {
     private final String model;
     
     protected Aeronava (String newId, String newModel, AeronavaType newType) {
+        if (newId == null) {
+            throw new IllegalArgumentException("In `Aeronava (String newId, String newModel, AeronavaType newType)`: newId can't be null");
+        }
         this.id = newId;
+        
+        if (newModel == null) {
+            throw new IllegalArgumentException("In `Aeronava (String newId, String newModel, AeronavaType newType)`: newModel can't be null");
+        }     
         this.model = newModel;
+        
         this.aeronavaType = newType;
     }
     

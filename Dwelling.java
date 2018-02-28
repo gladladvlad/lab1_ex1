@@ -23,10 +23,17 @@ public abstract class Dwelling {
     private final int aeronaveStored;
     
     protected Dwelling (String newId, int newCapacity, DwellingType newType) {
+        if (newId == null) {
+            throw new IllegalArgumentException("In `Dwelling (String newId, int newCapacity, DwellingType newType)`: newId can't be null");
+        }
         this.id = newId;
 
+        if (newCapacity < 1){
+            throw new IllegalArgumentException("In `Dwelling (String newId, int newCapacity, DwellingType newType)`: newCapacity can't be null");
+        }
         this.capacity = newCapacity;
         aeronave = new ArrayList<>(newCapacity);
+        
         this.aeronaveStored = 0;
     
         this.dwellingType = newType;
