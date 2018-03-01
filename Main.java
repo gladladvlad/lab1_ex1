@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 /**
@@ -133,14 +131,12 @@ public class Main {
                     }else if (parts[1].equals("dwelling")){
                         cleanFile(parts[3]);
                         myAeroport.getDwellingById(parts[2]).dump(parts[3]);
-                    /*}else if (parts[1].equals("aeronava")){
+                    }else if (parts[1].equals("aeronava")){
                         if (!parts[3].equals("in"))
                             throw new IllegalArgumentException();
                         
                         cleanFile(parts[5]);
-                        Dwelling dwelling = myAeroport.getDwellingById(parts[4]);
-                        Aeronava aero = dwelling.getAeronavaById(parts[2]);
-                        aero.dump(parts[5]);*/
+                        myAeroport.getDwellingById(parts[4]).getAeronavaById(parts[2]).dump(parts[5]);
                     }
                 }else if (parts[0].equals("hangar")) {
                     if (parts.length == 3) {

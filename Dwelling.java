@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class Dwelling implements java.io.Serializable {
     protected enum DwellingType {Hangar, Pista};
-    DwellingType dwellingType;
+    protected final DwellingType dwellingType;
     
     private final String id;
     
