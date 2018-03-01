@@ -5,6 +5,9 @@
  */
 package AerialManager;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ import java.util.List;
  *
  * @author C4theWin
  */
-public class Aeroport {
+public class Aeroport implements java.io.Serializable {
     private List<Dwelling> dwellings;
     
     Aeroport (int numDwellings) {
@@ -61,5 +64,19 @@ public class Aeroport {
         }
         
         return null;
+    }
+    
+    protected void dump (String fileName) throws IOException {
+        Writer fileOut = new FileWriter(fileName, true);
+        
+        String newline = System.getProperty("line.separator");
+        
+        fileOut.write("++Aeroport ce contine:" + newline);
+        
+        fileOut.close();
+        
+        for (int i = 0; i < dwellings.size(); i++) {
+            dwellings.get(i).dump(fileName);
+        }
     }
 }

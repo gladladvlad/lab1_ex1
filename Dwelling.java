@@ -5,6 +5,9 @@
  */
 package AerialManager;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ import java.util.List;
  *
  * @author C4theWin
  */
-public abstract class Dwelling {
+public abstract class Dwelling implements java.io.Serializable {
     protected enum DwellingType {Hangar, Pista};
     DwellingType dwellingType;
     
@@ -88,5 +91,53 @@ public abstract class Dwelling {
         this.aeronave.add(newAeronava);
         this.aeronaveStored++;
         return true;
+    }
+    
+    protected Aeronava getAeronavaById (String idAeronava) {
+        if (idAeronava == null) {
+            throw new IllegalArgumentException("In `removeAeronavaById (String removeId)`: idAeronava can't be null");
+        }
+        
+        for (int i = 0; i < aeronave.size(); i++) {
+            Aeronava currentAeronava = aeronave.get(i);
+            
+            if (currentAeronava.getId().equals(idAeronava)) {
+                return currentAeronava;
+            }
+        }
+        
+        return null;
+    }
+    
+    /*
+    protected void dump (OutputStream outStream) throws IOException {
+        OutputStreamWriter  outputStreamWriter = new OutputStreamWriter(outStream);
+        
+        String newline = System.getProperty("line.separator");
+        
+        outputStreamWriter.write("Dwelling \"" + this.id + "\": capacitate " + this.capacity + ""
+                + " si " + this.aeronaveStored + " locuri ocupate");
+        
+        outputStreamWriter.close();
+        
+        for (int i = 0; i < aeronave.size(); i++) {
+            aeronave.get(i).dump(outStream);
+        }
+    }
+    */
+    
+    protected void dump (String fileName) throws IOException {
+        Writer fileOut = new FileWriter(fileName, true);
+        
+        String newline = System.getProperty("line.separator");
+        
+        fileOut.write("+Dwelling \"" + this.id + "\": capacitate " + this.capacity + ""
+                + " si " + this.aeronaveStored + " locuri ocupate:" + newline);
+        
+        fileOut.close();
+        
+        for (int i = 0; i < aeronave.size(); i++) {
+            aeronave.get(i).dump(fileName);
+        }
     }
 }

@@ -10,7 +10,7 @@ package AerialManager;
  * @author C4theWin
  */
 public class Avion extends Aeronava{
-    Avion (String newId, String newModel, AeronavaType newType) {
-        super(newId, newModel, newType);
+    Avion (String newId, String newModel) {
+        super(newId, newModel, AeronavaType.Avion);
     }
 }
