@@ -38,20 +38,19 @@ public class Aeroport implements java.io.Serializable {
         return true;
     }
     
-    /*
-    public boolean addAeronava (Aeronava aeronavaToAdd) {
-        boolean validation = false;
-        if (validation) {
-            return false;
-        }
+    public boolean removeDwellingById (String removeId) {
+        if (removeId == null)
+            throw new IllegalArgumentException("In `getDwellingById (String removeId)`: removeId can't be null");
         
         for (int i = 0; i < dwellings.size(); i++) {
-            //if (dwellings.get())
+            if (dwellings.get(i).getId().equals(removeId)) {
+                dwellings.remove(i);
+                return true;
+            }
         }
         
-        return true;
+        return false;
     }
-    */
     
     public Dwelling getDwellingById (String lookId) {
         if (lookId == null)

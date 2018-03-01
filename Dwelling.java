@@ -131,7 +131,8 @@ public abstract class Dwelling implements java.io.Serializable {
         
         String newline = System.getProperty("line.separator");
         
-        fileOut.write("+Dwelling \"" + this.id + "\": capacitate " + this.capacity + ""
+        fileOut.write("+Dwelling \"" + this.id + "\": tip \"" + this.dwellingType
+                + "\", capacitate " + this.capacity + ""
                 + " si " + this.aeronaveStored + " locuri ocupate:" + newline);
         
         fileOut.close();

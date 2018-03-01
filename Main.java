@@ -99,45 +99,107 @@ public class Main {
     }
     
     public static void main (String[] args) throws FileNotFoundException, IOException {
+        /*
         FileOutputStream file = new FileOutputStream("file.txt");
         
-        Aeroport maer = new Aeroport(2);
-        Dwelling area51 = new Hangar("area 51", 2);
-        maer.addDwelling(area51);
-        maer.getDwellingById("area 51").addAeronava(new Avion("Avion1", "Boing123"));
-        maer.getDwellingById("area 51").addAeronava(new Elicopter("hematosfer2", "apacher_roadkill"));
+        Aeroport myAeroport = new Aeroport(2);
+        myAeroport.addDwelling(new Hangar("area51", 3));
+        myAeroport.getDwellingById("area51").addAeronava(new Avion("Avion1", "Boing123"));
+        myAeroport.getDwellingById("area51").addAeronava(new Elicopter("hematosferonomicon2", "apacher_roadkill"));
+        myAeroport.addDwelling(new Pista("bermuda", 100));
+        myAeroport.getDwellingById("bermuda").addAeronava(new Avion("Avion2", "Matematica"));
+        */
         
-        cleanFile("file.txt");
-        maer.dump("file.txt");
-        
+        Aeroport myAeroport = new Aeroport();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         
-        String command;
-        String[] parts;
         //String newline = System.getProperty("line.separator");
         do {
+            String command;
+            String[] parts;
             try {
                 System.out.print(">");
                 command = reader.readLine();
+                
+                command = command.toLowerCase();
                 parts = command.split(" ");
+                
                 if (parts[0].equals("exit")) {
                     return;
                 }else if (parts[0].equals("dump")){
-                    maer.dump(parts[1]);
+                    if (parts[1].equals("aeroport")) {
+                        cleanFile(parts[2]);
+                        myAeroport.dump(parts[2]);
+                    }else if (parts[1].equals("dwelling")){
+                        cleanFile(parts[3]);
+                        myAeroport.getDwellingById(parts[2]).dump(parts[3]);
+                    /*}else if (parts[1].equals("aeronava")){
+                        if (!parts[3].equals("in"))
+                            throw new IllegalArgumentException();
+                        
+                        cleanFile(parts[5]);
+                        Dwelling dwelling = myAeroport.getDwellingById(parts[4]);
+                        Aeronava aero = dwelling.getAeronavaById(parts[2]);
+                        aero.dump(parts[5]);*/
+                    }
+                }else if (parts[0].equals("hangar")) {
+                    if (parts.length == 3) {
+                        myAeroport.addDwelling(new Hangar(parts[1], Integer.parseInt(parts[2], 10)));
+                    }else {
+                        myAeroport.addDwelling(new Hangar(parts[1]));
+                    }
+                }else if (parts[0].equals("pista")) {
+                    if (parts.length == 3) {
+                        myAeroport.addDwelling(new Pista(parts[1], Integer.parseInt(parts[2], 10)));
+                    }else {
+                        myAeroport.addDwelling(new Pista(parts[1]));
+                    }
+                }else if (parts[0].equals("avion")) {
+                    if (!parts[3].equals("in"))
+                        throw new IllegalArgumentException();
+                       
+                    if (myAeroport.getDwellingById(parts[4]).addAeronava(new Avion(parts[1], parts[2])))
+                        System.out.println("Succes!");
+                    else System.out.println("Esec!");
+                }else if (parts[0].equals("elicopter")) {
+                    if (!parts[3].equals("in"))
+                        throw new IllegalArgumentException();
+                       
+                    if (myAeroport.getDwellingById(parts[4]).addAeronava(new Elicopter(parts[1], parts[2])))
+                        System.out.println("Succes!");
+                    else System.out.println("Esec!");
+                }else if (parts[0].equals("aeroport")) { // reseteaza tot si creeaza aeroport nou cu parts[1] dwellinguri
+                    if (parts.length != 2) {
+                        myAeroport = new Aeroport();
+                    }else { 
+                        myAeroport = new Aeroport(Integer.parseInt(parts[1], 10));
+                    }                
+                }else if (parts[0].equals("save")) { // save aeroport file SAU save dwelling ID file
+                    if (parts[1].equals("aeroport")) {
+                        serialize(myAeroport, parts[2]);
+                    }else if (parts[1].equals("dwelling")) {
+                        serialize(myAeroport.getDwellingById(parts[2]), parts[3]);
+                    }
+                }else if (parts[0].equals("load")) {
+                    if (parts[1].equals("aeroport")) {
+                        myAeroport = deserializeAeroport(myAeroport, parts[2]);
+                    }else if (parts[1].equals("hangar")) {
+                        myAeroport.removeDwellingById(parts[2]);
+                        myAeroport.addDwelling(deserializeDwelling(new Hangar(parts[2]), parts[3]));
+                    }else if (parts[1].equals("pista")) {
+                        myAeroport.removeDwellingById(parts[2]);
+                        myAeroport.addDwelling(deserializeDwelling(new Pista(parts[2]), parts[3]));
+                    /*}else if (parts[1].equals("aeronava")) {
+                        serialize(myAeroport.get)
+                    */
+                    }
                 }
-            } catch (ArrayIndexOutOfBoundsException aiob) {
+            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException exc) {
                 System.out.println("Command error in phoneme! Something went wrong...");
+            } catch (NullPointerException nexc) {
+                System.out.println("Datele alea nu exista.");
             }
         
-        }while (true);
-        
-        serialize(maer, "my_serial.ser");
-        
-        //mavion = null;
-        maer = null;
-        
-        maer = deserializeAeroport(maer, "my_serial.ser");
-        
-        System.out.println ("Ia, ca avionu' meo ii:  id " + maer.getDwellingById("area 51").getAeronavaById("Avion1").getId() + " si model " + maer.getDwellingById("area 51").getAeronavaById("Avion1").getModel());
+        }while (true);   
     }
 }
